@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react'
 import { apiConfigurationMessage, fetchCollection } from '../api.js'
 import { EmptyState, ErrorState, LoadingState } from './ResourceState.jsx'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+const activitiesEndpoint = codespaceName
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/activities/`
+  : ''
+
 function formatDate(value) {
   if (!value) return 'Unscheduled'
 
@@ -25,7 +30,7 @@ function Activities() {
 
     const controller = new AbortController()
 
-    fetchCollection('activities', controller.signal)
+    fetchCollection(activitiesEndpoint, controller.signal)
       .then(({ items, total }) => {
         setActivities(items)
         setTotal(total)

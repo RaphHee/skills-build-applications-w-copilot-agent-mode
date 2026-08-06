@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react'
 import { apiConfigurationMessage, fetchCollection } from '../api.js'
 import { EmptyState, ErrorState, LoadingState } from './ResourceState.jsx'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+const usersEndpoint = codespaceName
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/users/`
+  : ''
+
 function Users() {
   const [users, setUsers] = useState([])
   const [total, setTotal] = useState(0)
@@ -15,7 +20,7 @@ function Users() {
 
     const controller = new AbortController()
 
-    fetchCollection('users', controller.signal)
+    fetchCollection(usersEndpoint, controller.signal)
       .then(({ items, total }) => {
         setUsers(items)
         setTotal(total)

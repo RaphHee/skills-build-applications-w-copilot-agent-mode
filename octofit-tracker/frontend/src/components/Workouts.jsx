@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react'
 import { apiConfigurationMessage, fetchCollection } from '../api.js'
 import { EmptyState, ErrorState, LoadingState } from './ResourceState.jsx'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+const workoutsEndpoint = codespaceName
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/workouts/`
+  : ''
+
 function Workouts() {
   const [workouts, setWorkouts] = useState([])
   const [total, setTotal] = useState(0)
@@ -15,7 +20,7 @@ function Workouts() {
 
     const controller = new AbortController()
 
-    fetchCollection('workouts', controller.signal)
+    fetchCollection(workoutsEndpoint, controller.signal)
       .then(({ items, total }) => {
         setWorkouts(items)
         setTotal(total)

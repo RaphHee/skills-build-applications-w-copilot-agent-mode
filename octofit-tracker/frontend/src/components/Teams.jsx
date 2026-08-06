@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react'
 import { apiConfigurationMessage, fetchCollection } from '../api.js'
 import { EmptyState, ErrorState, LoadingState } from './ResourceState.jsx'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+const teamsEndpoint = codespaceName
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/teams/`
+  : ''
+
 function Teams() {
   const [teams, setTeams] = useState([])
   const [total, setTotal] = useState(0)
@@ -15,7 +20,7 @@ function Teams() {
 
     const controller = new AbortController()
 
-    fetchCollection('teams', controller.signal)
+    fetchCollection(teamsEndpoint, controller.signal)
       .then(({ items, total }) => {
         setTeams(items)
         setTotal(total)

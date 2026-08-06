@@ -8,10 +8,6 @@ export const apiConfigurationMessage = codespaceName
   ? ''
   : 'Set VITE_CODESPACE_NAME in .env.local to load data from the Octofit API.'
 
-export function apiEndpoint(resource) {
-  return apiBaseUrl ? `${apiBaseUrl}/${resource}/` : ''
-}
-
 export function normalizeCollection(payload) {
   if (Array.isArray(payload)) {
     return { items: payload, total: payload.length }
@@ -24,9 +20,7 @@ export function normalizeCollection(payload) {
   return { items, total }
 }
 
-export async function fetchCollection(resource, signal) {
-  const endpoint = apiEndpoint(resource)
-
+export async function fetchCollection(endpoint, signal) {
   if (!endpoint) {
     return { items: [], total: 0 }
   }
