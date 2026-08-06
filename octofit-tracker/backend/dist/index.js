@@ -16,13 +16,14 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 8000;
 const codespaceName = process.env.CODESPACE_NAME;
-const baseUrl = codespaceName
+const apiOrigin = codespaceName
     ? `https://${codespaceName}-8000.app.github.dev`
     : 'http://localhost:8000';
+const apiBaseUrl = `${apiOrigin}/api`;
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.get('/', (_req, res) => {
-    res.json({ message: 'OctoFit Tracker API', baseUrl });
+    res.json({ message: 'OctoFit Tracker API', apiBaseUrl });
 });
 app.use('/api/users', users_1.default);
 app.use('/api/teams', teams_1.default);
@@ -35,6 +36,6 @@ app.use((error, _req, res, _next) => {
 });
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-    console.log(`Base URL: ${baseUrl}`);
+    console.log(`API base URL: ${apiBaseUrl}`);
 });
 exports.default = app;
