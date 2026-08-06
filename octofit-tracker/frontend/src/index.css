@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
+
+:root {
+  font: 16px/1.5 Manrope, sans-serif;
+  color: #243229;
+  background: #f7fbf8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+h1,
+h2 {
+  color: #17241c;
+  font-weight: 800;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 4.25rem);
+  line-height: 1;
+}
+
+h2 {
+  font-size: 1.75rem;
+  line-height: 1.15;
+  margin: 0;
+}
